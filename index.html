@@ -30,12 +30,24 @@
             <li><strong>Color:</strong> <span id="color"></span></li>
         </ul>
         <h2>Move Object</h2>
-        <button onclick="moveObject('q')">Q</button>
-        <button onclick="moveObject('a')">A</button>
-        <button onclick="moveObject('w')">W</button>
-        <button onclick="moveObject('s')">S</button>
-        <button onclick="moveObject('e')">E</button>
-        <button onclick="moveObject('d')">D</button>
+        <button>Q (↑ x Axis)</button>
+        <button>A (↓ x Axis)</button>
+        <button>W (↑ y Axis)</button>
+        <button>S (↓ y Axis)</button>
+        <button>E (↑ z Axis)</button>
+        <button>D (↓ z Axis)</button>
+        <br>
+        <h2>Rotate Object</h2>
+        <button>R (↑ x Axis)</button>
+        <button>F (↓ x Axis)</button>
+        <button>T (↑ y Axis)</button>
+        <button>G (↓ y Axis)</button>
+        <button>Y (↑ z Axis)</button>
+        <button>H (↓ z Axis)</button>
+        <br>
+        <h2>Change Color</h2>
+        <input type="color" id="colorPicker">
+        <button onclick="changeColor()">Apply Color (Z)</button>
         <br>
         <button id="downloadJsonButton">Descargar JSON</button>
         <img src="model.jpg" alt="" width="200" height="200">
@@ -232,7 +244,8 @@
         ];
 
         const localAxes = new BABYLON.AxesViewer(scene, 1);
-        
+
+
         // Cargar y posicionar cada parte del modelo 3D "spot"
         function loadAndPositionPart(part) {
             var meshURL = jsonParts[0].models;
@@ -384,7 +397,25 @@ function downloadJson() {
 // Asigna la función downloadJson al botón de descarga
 document.getElementById("downloadJsonButton").addEventListener("click", downloadJson);
 
+document.addEventListener("keydown", function (event) {
+    if (event.key === "z") {
+        // Llama a la función changeColor() al presionar la tecla "Z"
+        changeColor();
+    }
+});
+
+function changeColor() {
+    const colorPicker = document.getElementById("colorPicker");
+    const selectedColor = colorPicker.value;
+
+    if (pickedMesh) {
+        // Cambiar el color del material de la parte seleccionada
+        pickedMesh.material = new BABYLON.StandardMaterial("material", scene);
+        pickedMesh.material.diffuseColor = new BABYLON.Color3.FromHexString(selectedColor);
+    }
+}
 
     </script>
 </body>
 </html>
+
