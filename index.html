@@ -231,7 +231,8 @@
         }
         ];
 
-
+        const localAxes = new BABYLON.AxesViewer(scene, 1);
+        
         // Cargar y posicionar cada parte del modelo 3D "spot"
         function loadAndPositionPart(part) {
             var meshURL = jsonParts[0].models;
