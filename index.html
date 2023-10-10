@@ -77,6 +77,11 @@
             "name": "spot",
             "models": "https://raw.githubusercontent.com/ravendano014/spot/main/parts/",
             "parts": [
+       var jsonParts = [
+        {
+            "name": "spot",
+            "models": "https://raw.githubusercontent.com/ravendano014/spot/main/parts/",
+            "parts":[
             {
                 "mesh_id": "ukaq",
                 "mesh_name": "BODY.stl",
@@ -92,6 +97,13 @@
                     "x": 0,
                     "y": 0,
                     "z": 0
+                }
+                ],
+                "color": [
+                {
+                    "r": 1,
+                    "g": 0.7686274509803922,
+                    "b": 0.13333333333333333
                 }
                 ]
             },
@@ -111,6 +123,13 @@
                     "y": 0,
                     "z": 0
                 }
+                ],
+                "color": [
+                {
+                    "r": 0.984313725490196,
+                    "g": 0.01568627450980392,
+                    "b": 0.01568627450980392
+                }
                 ]
             },
             {
@@ -128,6 +147,13 @@
                     "x": 0,
                     "y": 0,
                     "z": 0
+                }
+                ],
+                "color": [
+                {
+                    "r": 0.984313725490196,
+                    "g": 0.01568627450980392,
+                    "b": 0.01568627450980392
                 }
                 ]
             },
@@ -147,6 +173,13 @@
                     "y": 0,
                     "z": 0
                 }
+                ],
+                "color": [
+                {
+                    "r": 0,
+                    "g": 0,
+                    "b": 0
+                }
                 ]
             },
             {
@@ -164,6 +197,13 @@
                     "x": 0,
                     "y": 0,
                     "z": 0
+                }
+                ],
+                "color": [
+                {
+                    "r": 0,
+                    "g": 0,
+                    "b": 0
                 }
                 ]
             },
@@ -183,6 +223,13 @@
                     "y": 0,
                     "z": 0
                 }
+                ],
+                "color": [
+                {
+                    "r": 0.984313725490196,
+                    "g": 0.01568627450980392,
+                    "b": 0.01568627450980392
+                }
                 ]
             },
             {
@@ -200,6 +247,13 @@
                     "x": 0,
                     "y": 0,
                     "z": 0
+                }
+                ],
+                "color": [
+                {
+                    "r": 0.984313725490196,
+                    "g": 0.01568627450980392,
+                    "b": 0.01568627450980392
                 }
                 ]
             },
@@ -219,6 +273,13 @@
                     "y": 0,
                     "z": 0
                 }
+                ],
+                "color": [
+                {
+                    "r": 0,
+                    "g": 0,
+                    "b": 0
+                }
                 ]
             },
             {
@@ -237,11 +298,19 @@
                     "y": 0,
                     "z": 0
                 }
+                ],
+                "color": [
+                {
+                    "r": 0,
+                    "g": 0,
+                    "b": 0
+                }
                 ]
             }
             ]
         }
         ];
+
 
         const localAxes = new BABYLON.AxesViewer(scene, 1);
 
@@ -257,6 +326,10 @@
                 meshes[0].name = part.mesh_name;
                 meshes[0].position = new BABYLON.Vector3(part.position[0].x, part.position[0].y, part.position[0].z);
                 meshes[0].rotation = new BABYLON.Vector3(BABYLON.Tools.ToRadians(part.rotation[0].x), BABYLON.Tools.ToRadians(part.rotation[0].y), BABYLON.Tools.ToRadians(part.rotation[0].z));
+            
+                meshes[0].material = new BABYLON.StandardMaterial("material", scene);
+                meshes[0].material.diffuseColor = new BABYLON.Color3.FromHexString(rgbToHex(part.color[0].r*255, part.color[0].g*255, part.color[0].b*255));
+            
             });
         }
 
@@ -350,6 +423,7 @@
                     updatedPart.rotation[0].x = BABYLON.Tools.ToDegrees(pickedMesh.rotation.x);
                     updatedPart.rotation[0].y = BABYLON.Tools.ToDegrees(pickedMesh.rotation.y);
                     updatedPart.rotation[0].z = BABYLON.Tools.ToDegrees(pickedMesh.rotation.z);
+                    updatedPart.color[0] = pickedMesh.material.diffuseColor;
                 }
                 // console.log(jsonParts);
 
@@ -367,16 +441,17 @@ function downloadJson() {
     return {
       mesh_id: part.mesh_id,
       mesh_name: part.mesh_name,
-      position: {
+      position:  [{
         x: mesh.position.x,
         y: mesh.position.y,
         z: mesh.position.z,
-      },
-      rotation: {
+      }],
+      rotation: [{
         x: BABYLON.Tools.ToDegrees(mesh.rotation.x),
         y: BABYLON.Tools.ToDegrees(mesh.rotation.y),
         z: BABYLON.Tools.ToDegrees(mesh.rotation.z),
-      },
+      }],
+      color: [mesh.material.diffuseColor]
     };
   });
 
@@ -415,6 +490,36 @@ function changeColor() {
     }
 }
 
+function rgbToHex(r, g, b) {
+    const toHex = (value) => {
+        const hex = value.toString(16);
+        return hex.length === 1 ? "0" + hex : hex;
+    };
+    
+    const red = toHex(r);
+    const green = toHex(g);
+    const blue = toHex(b);
+    
+    return "#" + red + green + blue;
+}
+
+function hexToRgb(hex) {
+    const trimmedHex = hex.replace(/^#/, "");
+    
+    if (trimmedHex.length === 3) {
+        const r = parseInt(trimmedHex[0], 16) * 17;
+        const g = parseInt(trimmedHex[1], 16) * 17;
+        const b = parseInt(trimmedHex[2], 16) * 17;
+        return { r, g, b };
+    } else if (trimmedHex.length === 6) {
+        const r = parseInt(trimmedHex.substring(0, 2), 16);
+        const g = parseInt(trimmedHex.substring(2, 4), 16);
+        const b = parseInt(trimmedHex.substring(4, 6), 16);
+        return { r, g, b };
+    }
+    
+    throw new Error("#000000");
+}
     </script>
 </body>
 </html>
