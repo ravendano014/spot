@@ -49,6 +49,10 @@
         <input type="color" id="colorPicker">
         <button onclick="changeColor()">Apply Color (Z)</button>
         <br>
+        <button id="copy-button">Copy (Ctrl+C)</button>
+        <button id="cut-button">Cut (Ctrl+X)</button>
+        <button id="paste-button">Paste (Ctrl+V)</button>
+        <br><br>
         <button id="downloadJsonButton">Descargar JSON</button>
         <img src="model.jpg" alt="" width="200" height="200">
     </div>
@@ -310,7 +314,7 @@
         const localAxes = new BABYLON.AxesViewer(scene, 1);
 
 
-        // Cargar y posicionar cada parte del modelo 3D "spot"
+        // Cargar y posicionar cada parte del modelo 3D 
         function loadAndPositionPart(part) {
             var meshURL = jsonParts[0].models;
             var meshName = part.mesh_name;
@@ -457,7 +461,7 @@ function downloadJson() {
   // Crear un enlace para la descarga
   const downloadLink = document.createElement("a");
   downloadLink.href = url;
-  downloadLink.download = "spot.json";
+  downloadLink.download = "model.json";
   downloadLink.click();
 
   // Liberar la URL del objeto Blob
@@ -471,6 +475,18 @@ document.addEventListener("keydown", function (event) {
     if (event.key === "z") {
         // Llama a la función changeColor() al presionar la tecla "Z"
         changeColor();
+    }
+    if (event.ctrlKey) {
+        if (event.key === 'c' || event.key === 'C') {
+            // Ctrl+C: Copiar las shapes seleccionadas al portapapeles
+            copyPart();
+        } else if (event.key === 'x' || event.key === 'X') {
+            // Ctrl+X: Cortar las shapes seleccionadas al portapapeles y eliminarlas
+            cutPart();
+        } else if (event.key === 'v' || event.key === 'V') {
+            // Ctrl+V: Pegar las shapes desde el portapapeles
+            pastePart();
+        }
     }
 });
 
@@ -515,7 +531,78 @@ function hexToRgb(hex) {
     
     throw new Error("#000000");
 }
+
+const copyButton = document.getElementById("copy-button");
+const cutButton = document.getElementById("cut-button");
+const pasteButton = document.getElementById("paste-button");
+
+// Variable para almacenar los elementos copiados o cortados
+let copiedOrCutData = null;
+let copiedPart = null;
+
+// Evento para copiar
+function copyPart() {
+    if (pickedMesh) {
+      copiedOrCutData = pickedMesh ? { ...pickedMesh } : null; // Clona la figura seleccionada
+      copiedPart =  scene.getMeshByID(copiedOrCutData.id);
+      copiedPartData = {
+      mesh_id: randomName(),
+      mesh_name: copiedPart.name,
+      position:  [{
+        x: copiedPart.position.x+20,
+        y: copiedPart.position.y+20,
+        z: copiedPart.position.z,
+      }],
+      rotation: [{
+        x: BABYLON.Tools.ToDegrees(copiedPart.rotation.x),
+        y: BABYLON.Tools.ToDegrees(copiedPart.rotation.y),
+        z: BABYLON.Tools.ToDegrees(copiedPart.rotation.z),
+      }],
+      color: [copiedPart.material.diffuseColor]
+    };
+    }
+  
+}
+
+// Evento para cortar
+function cutPart() {
+    if (pickedMesh) {
+        copiedOrCutData = { ...pickedMesh }; // Clona la figura seleccionada
+        // Elimina la figura seleccionada del arreglo shapes
+        const index = jsonParts.indexOf(pickedMesh);
+        if (index !== -1) {
+            jsonParts.splice(index, 1);
+        }
+        scene.removeMesh(pickedMesh);
+        pickedMesh.dispose();
+        pickedMesh = null;
+        
+    }
+}
+
+// Evento para pegar
+function pastePart() {
+    if (pickedMesh) {
+         if (copiedOrCutData) {
+          // Concatena los elementos copiados o cortados al arreglo original
+          jsonParts.push(copiedPartData);
+          //console.log(copiedPartData);
+          loadAndPositionPart(copiedPartData, new BABYLON.Vector3(0, 0, 0));
+        }
+   }
+}
+
+function randomName() {
+    const allowedchars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+    let randomName = '';
+
+    for (let i = 0; i < 5; i++) {
+        const randomIndex = Math.floor(Math.random() * allowedchars.length);
+        randomName += allowedchars.charAt(randomIndex);
+    }
+
+    return randomName;
+}
     </script>
 </body>
 </html>
-
