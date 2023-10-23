@@ -1,0 +1,233 @@
+[
+  {
+      "name": "spot",
+      "models": "https://raw.githubusercontent.com/ravendano014/spot/main/parts/",
+      "parts":[
+      {
+          "mesh_id": "ukaq",
+          "mesh_name": "BODY.stl",
+          "position": [
+          {
+              "x": 0,
+              "y": 0,
+              "z": 0
+          }
+          ],
+          "rotation": [
+          {
+              "x": 0,
+              "y": 0,
+              "z": 0
+          }
+          ],
+          "color": [
+          {
+              "r": 1,
+              "g": 0.7686274509803922,
+              "b": 0.13333333333333333
+          }
+          ]
+      },
+      {
+          "mesh_id": "akaq",
+          "mesh_name": "LEFT_LEG_DOWN_1.stl",
+          "position": [
+          {
+              "x": 0,
+              "y": 0,
+              "z": 0
+          }
+          ],
+          "rotation": [
+          {
+              "x": 0,
+              "y": 0,
+              "z": 0
+          }
+          ],
+          "color": [
+          {
+              "r": 0.984313725490196,
+              "g": 0.01568627450980392,
+              "b": 0.01568627450980392
+          }
+          ]
+      },
+      {
+          "mesh_id": "bkaq",
+          "mesh_name": "LEFT_LEG_DOWN_2.stl",
+          "position": [
+          {
+              "x": 0,
+              "y": -93.3,
+              "z": 0
+          }
+          ],
+          "rotation": [
+          {
+              "x": 0,
+              "y": 0,
+              "z": 0
+          }
+          ],
+          "color": [
+          {
+              "r": 0.984313725490196,
+              "g": 0.01568627450980392,
+              "b": 0.01568627450980392
+          }
+          ]
+      },
+      {
+          "mesh_id": "ykaq",
+          "mesh_name": "LEFT_LEG_UP_1.stl",
+          "position": [
+          {
+              "x": 0,
+              "y": 0,
+              "z": 0
+          }
+          ],
+          "rotation": [
+          {
+              "x": 0,
+              "y": 0,
+              "z": 0
+          }
+          ],
+          "color": [
+          {
+              "r": 0,
+              "g": 0,
+              "b": 0
+          }
+          ]
+      },
+      {
+          "mesh_id": "zkaq",
+          "mesh_name": "LEFT_LEG_UP_2.stl",
+          "position": [
+          {
+              "x": 0,
+              "y": -93.3,
+              "z": 0
+          }
+          ],
+          "rotation": [
+          {
+              "x": 0,
+              "y": 0,
+              "z": 0
+          }
+          ],
+          "color": [
+          {
+              "r": 0,
+              "g": 0,
+              "b": 0
+          }
+          ]
+      },
+      {
+          "mesh_id": "ckaq",
+          "mesh_name": "RIGHT_LEG_DOWN_1.stl",
+          "position": [
+          {
+              "x": 0,
+              "y": 0,
+              "z": 0
+          }
+          ],
+          "rotation": [
+          {
+              "x": 0,
+              "y": 0,
+              "z": 0
+          }
+          ],
+          "color": [
+          {
+              "r": 0.984313725490196,
+              "g": 0.01568627450980392,
+              "b": 0.01568627450980392
+          }
+          ]
+      },
+      {
+          "mesh_id": "dkaq",
+          "mesh_name": "RIGHT_LEG_DOWN_2.stl",
+          "position": [
+          {
+              "x": 0,
+              "y": -93.3,
+              "z": 0
+          }
+          ],
+          "rotation": [
+          {
+              "x": 0,
+              "y": 0,
+              "z": 0
+          }
+          ],
+          "color": [
+          {
+              "r": 0.984313725490196,
+              "g": 0.01568627450980392,
+              "b": 0.01568627450980392
+          }
+          ]
+      },
+      {
+          "mesh_id": "ekaq",
+          "mesh_name": "RIGHT_LEG_UP_1.stl",
+          "position": [
+          {
+              "x": 0,
+              "y": 0,
+              "z": 0
+          }
+          ],
+          "rotation": [
+          {
+              "x": 0,
+              "y": 0,
+              "z": 0
+          }
+          ],
+          "color": [
+          {
+              "r": 0,
+              "g": 0,
+              "b": 0
+          }
+          ]
+      },
+      {
+          "mesh_id": "fkaq",
+          "mesh_name": "RIGHT_LEG_UP_2.stl",
+          "position": [
+          {
+              "x": 0,
+              "y": -93.3,
+              "z": 0
+          }
+          ],
+          "rotation": [
+          {
+              "x": 0,
+              "y": 0,
+              "z": 0
+          }
+          ],
+          "color": [
+          {
+              "r": 0,
+              "g": 0,
+              "b": 0
+          }
+          ]
+      }
+      ]
+  }
+  ]
